@@ -1,2 +1,3 @@
-3
-10
+3 10
+occupancy.csv
+customers.csv
