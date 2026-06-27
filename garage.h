@@ -1,31 +1,30 @@
 #ifndef GARAGE_H
 #define GARAGE_H
-
-#include <ostream>
-#include <stack>
 #include <string>
-#include <unordered_map>
 #include <vector>
-#include "customer.h"
+using namespace std;
 
 class Garage {
 
-private:
-    int capacity;
-    vector<string> spaces;
-    stack<int> freeSpots;
+    private:
 
-public:
-    Garage();
-    Garage(int capacity, vector<string> initialSpaces);
+        vector<string> spaces;
+        int freeSpots; // change back into a stack later
+        int capacity;
 
-    bool ParkCustomer();
-    bool RemoveCustomer();
-    bool IsAvailable() const;
-    int GetCapacity() const;
-    int GetAvailableCount() const;
-    string GetSpotValue() const;
-    void PrintLayout() const;
+    public:
+
+        Garage();
+        explicit Garage(int capacity);
+        Garage(int capacity, vector<string> initialSpaces);
+
+        void SetSpace(const string& space);
+        bool ParkCustomer();
+        bool RemoveCustomer();
+        bool IsAvailable() const;
+        int GetAvailableCount() const;
+        string GetSpotValue(int index) const;
+        void PrintLayout() const;
 };
 
 #endif

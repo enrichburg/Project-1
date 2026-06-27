@@ -13,8 +13,8 @@ Customer::Customer() {
 
 }
 
-Customer::Customer(string id, string name, string phone, string arrivalTime, string departureTime, bool isParked, int garageIndex, int spotIndex) {
-
+Customer::Customer(const string& id, const string& name, const string& phone, const string& arrivalTime, const string& departureTime, bool isParked, int garageIndex, int spotIndex) {
+    
     this->id = id;
     this->name = name;
     this->phone = phone;
@@ -26,7 +26,7 @@ Customer::Customer(string id, string name, string phone, string arrivalTime, str
 
 }
 
-void Customer::SetDepartureTime(string departureTime) {
+void Customer::SetDepartureTime(const string& departureTime) {
     this->departureTime = departureTime;
 }
 

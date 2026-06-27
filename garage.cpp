@@ -1,21 +1,60 @@
 #include "garage.h"
-#include <fstream>
 #include <iostream>
-#include <sstream>
 
 Garage::Garage() {
+
     capacity = 0;
+    freeSpots = 0;
+
 }
 
-Garage::Garage(int capacity, vector<string> initialSpaces) {
-    this->capacity = capacity;
-    spaces = initialSpaces;
+Garage::Garage(int capacity)
+
+    : spaces(), freeSpots(0), capacity(capacity) {
+    spaces.reserve(capacity);
+
+}
+
+Garage::Garage(int capacity, vector<string> initialSpaces)
+
+    : spaces(move(initialSpaces)), freeSpots(0), capacity(capacity) {
+    for (const auto& space : spaces) {
+        if (space == "-1") {
+            ++freeSpots;
+        }
+    }
+
+}
+
+void Garage::SetSpace(const string& space) {
+
+    if (static_cast<int>(spaces.size()) < capacity) {
+        spaces.push_back(space);
+        if (space == "-1") {
+            ++freeSpots;
+        }
+    }
+
 }
 
 bool Garage::ParkCustomer() { return false; }
 bool Garage::RemoveCustomer() { return false; }
-bool Garage::IsAvailable() const { return false; }
-int Garage::GetCapacity() const { return capacity; }
-int Garage::GetAvailableCount() const { return 0; }
-string Garage::GetSpotValue() const { return ""; }
-void Garage::PrintLayout() const {}
+bool Garage::IsAvailable() const { return freeSpots > 0; }
+int Garage::GetAvailableCount() const {  return freeSpots; }
+
+string Garage::GetSpotValue(int index) const {
+
+    if (index < 0 || index >= static_cast<int>(spaces.size())) {
+        return "";
+    }
+    return spaces[index];
+
+}
+
+void Garage::PrintLayout() const {
+
+    for (const auto& space : spaces) {
+        cout << space << endl;
+    }
+    
+}
