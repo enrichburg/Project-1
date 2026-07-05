@@ -249,15 +249,14 @@ bool QParkingSystem::AssignParkingSpace(const string& customerId) {
 // self-contained; all pick-up code routes location lookups through here.
 bool QParkingSystem::LocateCar(const string& customerId, int& garageIndex, int& spotIndex) const {
 
-    // TODO (Nicholas - Component 4): loop over the customers vector; when a
-    // customer's GetId() matches customerId and IsParked() is true, copy their
-    // GetGarageIndex() and GetSpotIndex() into the two reference parameters
-    // and return true. Return false if no parked match exists.
-    // Until this is written, every pick-up prints "could not retrieve car".
-    // See PARTNER_TODO.md for the full spec and how to test.
-    (void)customerId; // keeps the unused-parameter warning quiet until implemented
-    garageIndex = -1;
-    spotIndex = -1;
+    for (const auto& customer : customers) {
+        if (customer.GetId() == customerId && customer.IsParked()) {
+            garageIndex = customer.GetGarageIndex();
+            spotIndex = customer.GetSpotIndex();
+            return true;
+        }
+    }
+
     return false;
 
 }
@@ -312,11 +311,11 @@ bool QParkingSystem::RetrieveCar(const string& customerId) {
 // self-contained (display only) -- it is the sum of each garage's own count.
 int QParkingSystem::GetAvailableSpaces() const {
 
-    // TODO (Nicholas - Component 6): add up GetAvailableCount() for every
-    // garage in the garages vector and return the total. Until this is
-    // written, the status printout shows "Total available spaces: 0".
-    // See PARTNER_TODO.md for the full spec and how to test.
-    return 0;
+    int totalAvailable = 0;
+    for (const auto& garage : garages) {
+        totalAvailable += garage.GetAvailableCount();
+    }
+    return totalAvailable;
 
 }
 
