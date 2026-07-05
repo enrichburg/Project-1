@@ -11,8 +11,11 @@ class QParkingSystem {
 
         int numberOfGarages;
         int garageCapacity;
+        string interactionsFile;
         vector<Garage> garages;
         vector<Customer> customers;
+
+        int FindCustomerIndex(const string& customerId) const;
 
     public:
 
@@ -20,9 +23,12 @@ class QParkingSystem {
 
         bool LoadConfiguration(const string& fileName);
 
-        bool AssignParkingSpace();
-        bool RetrieveCar();
+        void ProcessInteractions();
+        bool AssignParkingSpace(const string& customerId);
+        bool LocateCar(const string& customerId, int& garageIndex, int& spotIndex) const;
+        bool RetrieveCar(const string& customerId);
         int GetAvailableSpaces() const;
+        void PrintStatus() const;
         void WriteOccupancy() const;
 
 };
